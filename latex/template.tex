@@ -1,0 +1,201 @@
+%% Template para dissertação/tese na classe UFPEthesis
+%% versão 0.9.2
+%% (c) 2005 Paulo G. S. Fonseca
+%% www.cin.ufpe.br/~paguso/ufpethesis
+
+%% Carrega a classe ufpethesis
+%% Opções: * Idiomas
+%%           pt   - português (padrão)
+%%           en   - inglês
+%%         * Tipo do Texto
+%%           bsc  - para monografias de graduação
+%%           msc  - para dissertações de mestrado (padrão)
+%%           qual - exame de qualificação doutorado
+%%           prop - proposta de tese doutorado
+%%           phd  - para teses de doutorado
+%%         * Mídia
+%%           scr  - para versão eletrônica (PDF) / consulte o guia do usuario
+%%         * Estilo
+%%           classic - estilo original à la TAOCP (deprecated)
+%%           std     - novo estilo à la CUP (padrão)
+%%         * Paginação
+%%           oneside - para impressão em face única
+%%           twoside - para impressão em frente e verso (padrão)
+\documentclass{ufpethesis}
+
+%% Preâmbulo:
+%% coloque aqui o seu preâmbulo LaTeX, i.e., declaração de pacotes,
+%% (re)definições de macros, medidas, etc.
+
+%% Identificação:
+
+% Universidade
+% e.g. \university{Universidade de Campinas}
+% Na UFPE, comente a linha a seguir
+\university{<NOME DA UNIVERSIDADE>}
+
+% Endereço (cidade)
+% e.g. \address{Campinas}
+% Na UFPE, comente a linha a seguir
+\address{<CIDADE DA IES>}
+
+% Instituto ou Centro Acadêmico
+% e.g. \institute{Centro de Ciências Exatas e da Natureza}
+% Comente se não se aplicar
+\institute{<NOME DO INSTITUTO OU CENTRO ACADÊMICO>}
+
+% Departamento acadêmico
+% e.g. \department{Departamento de Informática}
+% Comente se não se aplicar
+\department{<NOME DO DEPARTAMENTO>}
+
+% Programa de pós-graduação
+% e.g. \program{Pós-graduação em Ciência da Computação}
+\program{<NOME DO PROGRAMA>}
+
+% Área de titulação
+% e.g. \majorfield{Ciência da Computação}
+\majorfield{<NOME DA ÁREA DE TITULAÇÃO>}
+
+% Título da dissertação/tese
+% e.g. \title{Sobre a conjectura $P=NP$}
+\title{<TÍTULO DA OBRA>}
+
+% Data da defesa
+% e.g. \date{19 de fevereiro de 2003}
+\date{<DATA DA DEFESA>}
+
+% Autor
+% e.g. \author{José da Silva}
+\author{<NOME DO AUTOR>}
+
+% Orientador(a)
+% Opção: [f] - para orientador do sexo feminino
+% e.g. \adviser[f]{Profa. Dra. Maria Santos}
+\adviser{<NOME DO(DA) ORIENTADOR(A)>}
+
+% Orientador(a)
+% Opção: [f] - para orientador do sexo feminino
+% e.g. \coadviser{Prof. Dr. Pedro Pedreira}
+% Comente se não se aplicar
+\coadviser{NOME DO(DA) CO-ORIENTADOR(A)}
+
+%% Inicio do documento
+\begin{document}
+
+%%
+%% Parte pré-textual
+%%
+\frontmatter
+
+% Folha de rosto
+% Comente para ocultar
+\frontpage
+
+% Portada (apresentação)
+% Comente para ocultar
+\presentationpage
+
+% Dedicatória
+% Comente para ocultar
+\begin{dedicatory}
+<DIGITE A DEDICATÒRIA AQUI>
+\end{dedicatory}
+
+% Agradecimentos
+% Se preferir, crie um arquivo à parte e o inclua via \include{}
+\acknowledgements
+<DIGITE OS AGRADECIMENTOS AQUI>
+
+% Epígrafe
+% Comente para ocultar
+% e.g.
+%  \begin{epigraph}[Tarde, 1919]{Olavo Bilac}
+%  Última flor do Lácio, inculta e bela,\\
+%  És, a um tempo, esplendor e sepultura;\\
+%  Ouro nativo, que, na ganga impura,\\
+%  A bruta mina entre os cascalhos vela.
+%  \end{epigraph}
+\begin{epigraph}[<NOTA>]{<AUTOR>}
+<DIGITE AQUI A CITAÇÂO>
+\end{epigraph}
+
+% Resumo em Português
+% Se preferir, crie um arquivo à parte e o inclua via \include{}
+\resumo
+<DIGITE O RESUMO AQUI>
+% Palavras-chave do resumo em Português
+\begin{keywords}
+<DIGITE AS PALAVRAS-CHAVE AQUI>
+\end{keywords}
+
+% Resumo em Inglês
+% Se preferir, crie um arquivo à parte e o inclua via \include{}
+\abstract
+% Palavras-chave do resumo em Inglês
+\begin{keywords}
+<DIGITE AS PALAVRAS-CHAVE AQUI>
+\end{keywords}
+
+% Sumário
+% Comente para ocultar
+\tableofcontents
+
+% Lista de figuras
+% Comente para ocultar
+\listoffigures
+
+% Lista de tabelas
+% Comente para ocultar
+\listoftables
+
+
+
+%%
+%% Parte textual
+%%
+\mainmatter
+
+% É aconselhável criar cada capítulo em um arquivo à parte, digamos
+% "capitulo1.tex", "capitulo2.tex", ... "capituloN.tex" e depois
+% incluí-los com:
+% \include{capitulo1}
+% \include{capitulo2}
+% ...
+% \include{capituloN}
+
+
+
+%%
+%% Parte pós-textual
+%%
+\backmatter
+
+% Apêndices
+% Comente se não houver apêndices
+\appendix
+
+% É aconselhável criar cada apêndice em um arquivo à parte, digamos
+% "apendice1.tex", "apendice.tex", ... "apendiceM.tex" e depois
+% incluí-los com:
+% \include{apendice1}
+% \include{apendice2}
+% ...
+% \include{apendiceM}
+
+
+% Bibliografia
+% É aconselhável utilizar o BibTeX a partir de um arquivo, digamos "biblio.bib".
+% Para ajuda na criação do arquivo .bib e utilização do BibTeX, recorra ao
+% BibTeXpress em www.cin.ufpe.br/~paguso/bibtexpress
+\nocite{*}
+\bibliographystyle{alpha}
+\bibliography{biblio}
+
+% Cólofon
+% Inclui uma pequena nota com referência à UFPEThesis
+% Comente para omitir
+\colophon
+
+%% Fim do documento
+\end{document}

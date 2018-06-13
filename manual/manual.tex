@@ -1,0 +1,1239 @@
+\documentclass[phd,oneside,scr]{ufpethesis}
+
+\usepackage{amsmath,amsfonts,amssymb}
+\usepackage{enumerate,paralist}
+\usepackage{graphicx}
+\usepackage{layout}
+\usepackage{moreverb}
+\usepackage{xspace}
+\usepackage{verbatim}
+
+\newcommand{\ufpethesis}{\textsf{UFPEThesis}\xspace}
+\def\AMSTeX{{\protect\AmS-\protect\TeX}}
+\def\BibTeX{{\rm B\kern-.05em{\sc i\kern-.025em b}\kern-.08em
+    T\kern-.1667em\lower.7ex\hbox{E}\kern-.125emX}}
+
+\newcommand{\eg}{\emph{e.g.}\/\xspace}
+\newcommand{\ie}{\emph{i.e.}\/\xspace}
+\newcommand{\etc}{\emph{etc}\/\xspace}
+\newcommand{\etal}{\emph{et al.}\/\xspace}
+
+\newcommand{\blue}{\color{blue}}
+
+\institute{Centro de Ciências Hipotéticas Gerais}
+\department{Departamento de Tipografia}
+\program{Pós-graduação em Tipografia}
+\majorfield{Tipografia Digital}
+
+\title{Tipografando Teses e Dissertações em \LaTeX~
+na UFPE com a \ufpethesis\\ versão 0.9}
+
+\author{Paulo Gustavo Soares da Fonseca}
+\adviser[f]{Augusta Ada}
+\coadviser{Charles Babbage}
+
+
+\begin{document}
+
+%\layout
+
+\thispagestyle{empty}
+~\\\vskip 5cm
+\centerline{\Large\sf AVISO}
+~\\
+
+\noindent O presente documento contém uma tese fictícia elaborada para ilustrar o
+uso da classe \LaTeX~ \ufpethesis, originalmente elaborada para auxiliar os
+alunos da Universidade Federal de Pernambuco na confecção de suas monografias,
+dissertações e teses. Não se trata, portanto, de um documento oficial nem 
+está tampouco oficialmente relacionado a nenhum curso, programa ou órgão dessa 
+Universidade.
+
+\frontmatter
+
+\frontpage
+\presentationpage
+\begin{dedicatory}
+A todos os desenvolvedores do \TeX/\LaTeX~ espalhados ao redor do mundo.
+\end{dedicatory}
+
+\acknowledgements
+
+%Como sou otimista, agradeço desde já aos meus colegas que se oferecerão como
+%``cobaias'' da \ufpethesis e também àqueles que me ajudarão, com suas críticas,
+%sugestões e \emph{patches}, a corrigir e aperfeiçoar a classe até a sua primeira
+%versão final.
+%
+%Também agradeço ao meu cachorro Mike que me fez companhia na madrugada em
+%que eu escrevia este texto ;-)
+%
+%\bigskip
+%
+%\noindent{\bf Versão 0.9}
+%
+%\medskip
+%
+%\noindent 
+Embora a quantidade de trabalhos listados no site da classe seja modesta, e diga-se, não por omissão deste autor, a \ufpethesis desfruta, depois de dois anos de lançamento, de uma certa popularidade. Ao longo desse período, muitos usuários têm sido diligentes em relatar os problemas encontrados na utilização da classe, bem como em propor sugestões para seu aprimoramento. A esses usuários, que eu peço perdão por não listar nominalmente para não me arriscar a cometer alguma injustiça, aqui vão meus agradecimentos. Os erros relatados, eu os tentei corrigir todos nesta segunda versão. As sugestões eu também as considerei todas, mas essas nem sempre podem ser acatadas, às vezes pela incapacidade deste autor em implementá-las, às vezes por julgar que elas não são adequadas, pelo menos para o momento. De qualquer forma, gostaria de reforçar meus agradecimentos e encorajá-los a continuar enviando seus comentários.
+
+
+\begin{epigraph}[Ilusões Perdidas]{Honoré de Balzac}
+A impressão é para os manuscritos o que o teatro é para as mulheres:
+ilumina as belezas e os defeitos; tanto mata como dá vida;
+uma falha salta então aos olhos tão vivamente quanto os belos pensamentos.
+\end{epigraph}
+%\begin{epigraph}[Tarde, 1919]{Olavo Bilac}
+%Última flor do Lácio, inculta e bela,\\
+%És, a um tempo, esplendor e sepultura;\\
+%Ouro nativo, que, na ganga impura,\\
+%A bruta mina entre os cascalhos vela.
+%\end{epigraph}
+
+\resumo
+
+Este meta-documento contém as instruções para a utilização da classe \LaTeX\
+\ufpethesis destinada à tipografia de teses, dissertações e monografias
+pelos alunos da Universidade Federal de Pernambuco.
+
+\begin{keywords}
+Teses, dissertações, monografias, tipografia digital, \TeX, \LaTeX.
+\end{keywords}
+
+\abstract
+
+This meta-document contains the instructions for the utilization
+of the \ufpethesis \LaTeX-class, designed for the typesetting of thesis,
+dissertations and monographs by the students of the Federal University of Pernambuco.
+
+\begin{keywords}
+Thesis, dissertations, monographs, digital typography, \TeX, \LaTeX.
+\end{keywords}
+
+\tableofcontents
+\listoffigures
+\listoftables
+
+\mainmatter
+
+\chapter{Introdução}
+
+\begin{quotation}[Prefácio ao \TeX book]{Donald Knuth}
+Gentle reader: this is a handbook about \TeX, a new typesetting system intended for the creation of beautiful books.
+\end{quotation}
+\begin{quotation}{Hannibal Lecter}
+First principles, Clarice. Simplicity.
+\end{quotation}
+
+O sistema de processamento de textos \TeX, desenvolvido por Donald Knuth durante
+as décadas de 70 e 80, e o conjunto de macros desenvolvidas sobre o \TeX\ por
+Leslie Lamport, conhecido como \LaTeX, constituem o núcleo da plataforma de
+processamento de textos e tipografia digital mais amplamente utilizada para
+a produção de textos técnicos e científicos.
+
+O \TeX/\LaTeX\ baseia-se numa linguagem de marcação (\emph{markup language}),
+o que favorece ao escritor concentrar-se exclusivamente na \emph{estrutura} e
+conteúdo do texto a despeito da sua formatação física (fonte, tamanho, posição,
+etc.). Assim, por exemplo, ao escrever
+{\blue
+\begin{verbatim}
+   \documentclass{article}
+   \title{Um artigo interessante}
+   \author{Fulano de Tal}
+   \begin{document}
+   \maketitle
+   \section{Introdução}
+   ...
+   \end{document}
+\end{verbatim}
+\normalcolor}
+estamos dizendo ao \LaTeX:
+\begin{itemize}
+\item Isto é um artigo
+\item O título é ``Um artigo interessante''
+\item O autor é ``Fulano de Tal''
+\item A primeira seção chama-se ``Introdução''
+\item ...
+\end{itemize}
+A partir dessas informações, e baseado nas regras de formatação codificadas na
+classe padrão ``article'', o \LaTeX\ sabe exatamente como dispor cada um dos
+elementos na página. No caso típico de um outro tipo de sistema de processamento
+de textos, ou seja, nos sistemas ``orientados a palavra'' (como, por exemplo, o
+Microsoft Word), essa formatação tem de ser feita diretamente no texto à medida
+em que o escrevemos. Essa característica do
+\LaTeX\ oferece uma série de benefícios, dentre as quais destacamos:
+\begin{itemize}
+\item Independência \emph{forma \emph{vs.} conteúdo}. Como a informação
+referente ao conteúdo do texto é mantida isolada da sua formatação, esta
+pode ser alterada e até substituída sem nunca afetar aquela, bastando, para tanto,
+redefinir alguns comandos e/ou substituir alguns arquivos de estilo. Isso
+significa que o mesmo texto, uma vez escrito, pode ser facilmente e
+independentemente formatado para estar em conformidade com diversos padrões
+tipográficos.
+\item Coerência de estilo. Como o arquivo \LaTeX\ define uma \emph{estrutura}
+para o texto e a formatação atua sobre essa estrutura, isso garante que
+elementos de mesmo valor receberão sempre a mesma formatação. Por exemplo, ao
+definirmos \verb#\section{Introdução}# e \verb#\section{Conclusão}#,
+estamos dizendo que ambas são seções e portanto, elas receberão a mesma
+formatação. Da mesma forma, se usarmos o comando \verb#\emph{texto}# para
+sinalizar um texto a ser enfatizado (ao invés de, por exemplo, formatá-lo
+diretamente em \textit{itálico}) vamos garantir que todas as passagens a serem
+enfatizadas serão destacadas da mesma forma. Se, a qualquer tempo, decidirmos
+mudar a maneira de destacar um texto (por exemplo, de \textit{itálico} para
+\textbf{negrito}), basta redefinir o comando \verb#\emph#.
+\item Expressões matemáticas. Ninguém pode realmente apreciar completamente
+os inúmeros benefícios do \TeX\ até que tenha necessitado escrever um texto
+repleto de expressões matemáticas. O \TeX\ oferece uma linguagem riquíssima para
+tipografia de expressões matemáticas arbitrariamente complexas.
+\end{itemize}
+Além disso,
+\begin{itemize}
+\item Portabilidade. O \TeX/\LaTeX\ está disponível em praticamente todas as
+plataformas computacionais: PC/Windows, Linux, estações UNIX, Apple Macintosh,
+etc.
+\item Internacionalização. O \LaTeX oferece uma série de pacotes para a
+localização e adequação a vários idiomas e alfabetos.
+\item Economia de espaço. Como os arquivos-fonte do \LaTeX\ são arquivos texto,
+ocupam muito menos espaço do que outros formatos proprietários.
+\item Suporte. Por ser um programa aberto, o \TeX/\LaTeX\ possui uma enorme base
+de usuários e desenvolvedores que trocam livremente conhecimento e experiência
+pela Internet.
+\item Preço ;-)
+\item etc. etc. etc.
+\end{itemize}
+Por fim, e acima de todas essas coisas, a principal vantagem do \TeX\ é a
+seguinte:
+\begin{center}
+\large O \TeX\ produz os documentos mais bonitos!
+\end{center}
+
+Paradoxalmente, entretanto, o que deveria ser a principal vantagem do \LaTeX\
+sobre outros sistemas orientados a palavra,
+ou seja, a ênfase na estrutura e conteúdo do texto em detrimento da sua
+formatação, acaba sendo encarado por alguns como a principal dificuldade
+na sua utilização. Isso ocorre porque as classes padrão do \LaTeX\ quase nunca
+se adequam exatamente às suas necessidades específicas, sendo quase sempre
+necessária uma certa adaptação dos formatos oferecidos. É exatamente aí onde
+reside o problema pois essas adaptações nem sempre são tão simples de serem
+efetuadas, sobretudo pelos usuários com pouca experiência.
+
+A exemplo do que acontece em diversas instituições,
+o \TeX/\LaTeX\  também tem sido bastante utilizado pelos estudantes de
+pós-graduação da Universidade Federal de Pernambuco (UFPE), sobretudo pelos
+alunos das ditas Ciências Exatas (Matemática, Física, Computação, Estatística,
+etc.), para confecção de seus trabalhos. Entretanto, também
+aqui os usuários enfrentam as dificuldades discutidas no parágrafo anterior.
+A classe \ufpethesis foi desenvolvida para auxiliar os estudantes da UFPE na
+tarefa de produzir teses, dissertações e monografias bonitas e organizadas, sem que esses
+tenham de se ocupar em ``configurar'' os estilos do \LaTeX, preservando assim a
+filosofia original e evitando a proliferação de formatos equivocados
+e o mau uso dos recursos do sistema. É bom também salientar que, embora a \ufpethesis tenha sido escrita com a UFPE em mente, a classe pode ser trivialmente usada por alunos de qualquer outra instituição, sendo necessário apenas preencher os campos de identificação adequadamente e fornecer a imagem com o logotipo da instituição (\secref{sec:ident}).
+
+Do ponto de vista estético, a \ufpethesis mudou na direção da simplicidade. Obviamente, o visual definido por Donald Knuth na segunda edição do livro \emph{The Art of Computer Programming}, na qual se baseava primeira versão da classe, continua sendo objeto da minha maior admiração. Entretanto, o novo estilo, este que você está vendo, que é baseado num padrão que eu tenho observado em alguns livros da Cambridge University Press é, na minha opinião, mais simples, mais limpo. A mudança mais importante a ser mencionada aqui, talvez seja a mudança na fonte. Enquanto a versão anterior usava essencialmente as fontes Computer Modern Roman do Prof. Knuth, a nova versão emprega a combinação Times-Helvetica-Courier. Essa mudança deveu-se principalmente a dois fatores. O primeiro, de ordem mais prática, deve-se ao fato de que, nesses tempos de documentos sendo distribuídos em forma eletrônica (leia-se PDF) pela internet, as novas fontes PostScript T1 parecem mais apropriadas do que as fontes bitmapped. 
+Obviamente, por si só isso não seria uma justificativa, já que a maioria das distribuições recentes do \TeX\ incluem versões PostScript das fontes CMR. 
+O fato é que as fontes CMR posseum a desvantagem de serem mais largas e muito claras (o baixo contraste torna a leitura mais cansativa), além do fato de me parecem um tanto exuberantes demais. As serifas e adornos são um pouco excessivos, sobretudo nas fontes itálicas. Assim, resolvi mudar para uma fonte gratuita com um corpo um pouco mais robusto e com serifas mais discretas. Por fim, resta-me dizer que, conforme verão, o antigo \emph{layout}, apesar de não ser mais o padrão, continua disponível.
+
+\section{Visão Geral deste Guia}
+
+O restante deste texto está organizado da seguinte forma:
+\begin{itemize}
+\item No \chapref{cap_install} discutimos como obter e instalar a \ufpethesis.
+\item No \chapref{cap_use}, o núcleo deste documento, discutimos a utilização da
+\ufpethesis.
+\item No \chapref{cap_comment} tecemos comentários e considerações finais.
+\item O \appref{apen_template} contém a listagem do \emph{template} distribuído
+junto com a classe para que o leitor tenha uma boa noção de como tudo funciona
+em conjunto.
+\end{itemize}
+
+
+
+\chapter{Obtendo e Instalando a \ufpethesis}\label{cap_install}
+
+\begin{quotation}[A Palavra Escrita]{Wilson Martins}
+Não podemos perder de vista que o livro não é uma mercadoria\\
+como as outras. (...) Assim, tanto quanto possível, o livro deve ser\\
+belo e valioso inclusive como objeto e deve ser agradável à vista\\
+e ao tato, como é agradável à mente. Reduzi-lo à condição de mera\\
+mercadoria é vilipendiá-lo, é humilhá-lo na sua natureza e,\\
+o que é pior, é tornar o homem indigno dele.
+\end{quotation}
+
+
+A \ufpethesis pode ser obtido diretamente a partir da Internet em
+\vskip.5\baselineskip
+\begin{center}
+\url{http://www.cin.ufpe.br/~paguso/ufpethesis}
+\end{center}
+\vskip.5\baselineskip
+Na versão atual, a \ufpethesis é distribuída na forma de um arquivo compactado
+contendo os seguintes arquivos:
+\begin{description}
+\item[\texttt{ufpethesis.cls}] a classe propriamente dita
+\item[\texttt{ufpelogo.tex}] arquivo que define o logotipo da instituição
+\item[\texttt{ufpelogo.eps}] figura do \emph{novo} brasão da UFPE, utilizada pelo arquivo acima
+\item[\texttt{template.tex}] \emph{template} de um documento \ufpethesis
+\item[\texttt{aboutufpethesis.txt}] arquivo com mensagens sobre a \ufpethesis exibidas a cada execução do \LaTeX.
+\end{description}
+
+Para utilizar a \ufpethesis, é suficiente descompactar o
+arquivo no mesmo diretório contendo os arquivos-fonte \texttt{.tex} da sua
+dissertação ou tese. Um processo de instalação mais completo consiste em fazer a classe disponível a partir do repositório de pacotes da sua distribuição do \TeX. Por exemplo, para quem utiliza o Mik\TeX\ no Windows, basta criar uma pasta \texttt{ufpethesis} contendo esses arquivos dentro de 
+\texttt{$\backslash$localtexmf$\backslash$latex} de depois, atualizar a lista com o nome dos arquivos (pacotes) disponíveis executando o comando
+\[\text{\texttt{> initexmf --update-fndb}},\]
+ou através da interface de configuração do programa
+\[\text{\texttt{Programs->MikTeX->MikTeX Options->General->Refresh Now}}.\]
+Sugerimos consultar a documentação da sua distribuição \TeX\ para saber como proceder.
+
+
+
+\chapter{Utilizando a \ufpethesis}\label{cap_use}
+\begin{quotation}[O Livro Belo]{Gilberto Freyre}
+Da minha parte, habituei-me a ver no atual livro brasileiro toda a negação
+da estética do livro. Toda a negação do decoro, já não digo artístico mas
+comum. E a mim parece certo o seguinte: que os poetas têm os tipógrafos
+que merecem; e o chamado ``público intelectual'' tem igualmente os livros
+que merece. E a verdade é que nós, brasileiros, não estamos ainda em idade de
+fazer livros, nem intelectual nem tecnicamente. Isso de fazer livro não é
+arte para povos adolescentes e apressados. É arte para os povos maduros e
+pacientes. Nós nos devemos contentar em ser assuntos de livros de viajantes
+europeus e em fornecer com a nossa paisagem sugestões decorativas a artistas
+estrangeiros.
+\end{quotation}
+
+\section{Estrutura do Documento}\label{sec_str}
+
+A classe \ufpethesis es~tá construída sobre a classe padrão \textsf{book} do \LaTeX. A estrutura básica típica de um documento \ufpethesis é a seguinte:
+{\blue
+\begin{verbatim}
+\documentclass{ufpethesis}
+  <Preâmbulo>
+  <Identificação do trabalho>
+\begin{document}
+\frontmatter
+  <Parte pré-textual>
+\mainmatter
+  <Parte textual>
+\backmatter
+  <Parte pós-textual>
+\end{document}
+\end{verbatim}
+\normalcolor}
+
+O Documento é sempre iniciado pelo comando
+{\blue
+\begin{verbatim}
+\documentclass[opções]{ufpethesis}
+\end{verbatim}
+\normalcolor}
+
+As opções disponíveis estão distribuídas nas seguintes categorias:
+\begin{enumerate}
+\item Idioma
+\begin{description}
+\item[\texttt{pt}]  Idioma português. Opção padrão.
+\item[\texttt{en}]  Idioma inglês. Mesmo neste caso, as informações sobre o trabalho constantes da parte pré-textual são apresentadas em português, uma vez que, a princípio, estas informações devem ajudar a identificar o trabalho no contexto de uma instituição brasileira. Também espera-se que um resumo em português seja fornecido.
+\end{description}
+
+\item Tipo do texto
+\begin{description}
+\item[\texttt{bsc}] Monografia de conclusão de curso de graduação.
+\item[\texttt{msc}] Dissertação de mestrado. Opção padrão.
+\item[\texttt{qual}] Monografia de qualificação para doutorado.
+\item[\texttt{prop}] Proposta de tese de doutorado.
+\item[\texttt{phd}] Tese de doutorado.
+\end{description}
+
+\item Mídia
+\begin{description}
+\item[\texttt{scr}] Esta opção deve ser utilizada para a produção do trabalho em formato eletrônico (PDF), notadamente para ser lido na tela. Inclui links de navegação. Este documento foi produzido com essa opção ativada. Para a versão em papel para impressão, esta opção não deve ser utilizada. Mais detalhes na \secref{sec:scr}
+\end{description}
+
+\item Estilo
+\begin{description}
+\item[\texttt{classic}] Estilo clássico empregado na primeira versão da \ufpethesis. Baseado no padrão utilizado por Donald Knuth nos seus livros TAOCP. Utiliza fontes bitmapped Computer Modern Roman.
+\item[\texttt{std}] Estilo padrão, utilizando fontes PostScript (Times, Helvetica e Courier). Cabeçalhos centralizados. Opção padrão.
+\end{description}
+
+\item Paginação
+\begin{description}
+\item[\texttt{oneside}] Usada para impressão em apenas uma face do papel.
+\item[\texttt{twoside}] Usada para impressão em ambas as faces do papel (modo duplex). As páginas de apresentação bem como as páginas iniciais de cada capítulo são sempre páginas ``ímpares'' (face anterior do papel). Opção padrão.
+\end{description}
+
+
+\end{enumerate}
+
+O trecho identificado por \texttt{<Preâmbulo>} corresponde ao preâmbulo \LaTeX\
+usual no qual podem estar contidos comandos como \verb#\usepackage#, além de
+(re)definições de macros a critério do autor.
+
+O trecho rotulado por \texttt{<Identificação do trabalho>} contém a definição
+de vários atributos que identificam o trabalho e os seus autores e que serão
+utilizados pelo \ufpethesis para geração do material pré-textual. Os
+comandos referentes a este trecho serão discutidos na \secref{sec_id}
+
+O documento é então dividido em três partes: a primeira delas , indicada pelo comando
+\verb#\frontmatter# da classe padrão \textsf{book}, corresponde à chamada
+\emph{parte pré-textual} ou \emph{preliminar} que contém o chamado
+\emph{paratexto} e que precede o conteúdo propriamente dito. Essa parte comporta,
+por exemplo, a folha de rosto, o sumário, a lista de figuras, etc. A segunda
+parte, indicada pelo comando \verb#\mainmatter#, corresponde à chamada \emph{parte
+textual} ou \emph{corpo principal}, que encerra o conteúdo principal da obra,
+ou seja, as suas partes e capítulos. A terceira, demarcada pelo comando
+\verb#\backmatter#, corresponde à chamada \emph{parte pós-textual} ou
+\emph{referencial}, que contém, por exmplo, os apêndices, bibliografia, etc. 
+Os comandos correspondentes às partes  pré-textual,
+textual e pós-textual serão discutidos nas Seções \ref{sec_front},
+\ref{sec_main} e \ref{sec_back}, respectivamente.
+
+\section{Identificação do Trabalho}\label{sec_id}
+
+A classe \ufpethesis provê uma série de comandos para identificação do trabalho.
+
+\subsection{Identificação da Instituição}\label{sec:ident}
+
+{\blue
+\begin{verbatim}\university{<Nome da Universidade>}\end{verbatim}
+\normalcolor}
+
+O comando \verb#university# é utilizado para definir o nome da Universidade no
+qual o trabalho foi desenvolvido,
+\eg \verb#\university{Universidade Federal de Sergipe}#. Se não for explicitamente
+invocado, então o valor padrão ``Universidade Federal de Pernambuco'' será
+utilizado.
+
+\textbf{Nota para autores de outras instituições:}
+Repare que se o \ufpethesis for utilizado numa outra universidade,
+então o comando \verb#\universitylogo# deve ser redefinido para apontar para um
+arquivo que contenha código \LaTeX\ responsável pela produção do logotipo da
+instituição em questão, por exemplo\\
+\verb#  \renewcommand{\universitylogo}{ufslogo.tex}#.\\
+O arquivo \texttt{ufslogo.tex} poderia ser algo tão simples quanto\\
+\verb#  \includegraphics{ufslogo.eps}#\\
+qua faria com que o logotipo fosse carregado a partir de um arquivo no formato
+\emph{Encapsulated PostScript} (\texttt{.eps}).
+
+{\blue
+\begin{verbatim}\institute{<Instituto ou Centro Acadêmico>}\end{verbatim}
+\normalcolor}
+
+O comando \verb#\institute# é utilizado para definir o nome do instituto ou
+centro acadêmico no qual o trabalho foi desenvolvido,
+\eg\\
+\verb#  \institute{Centro de Ciências Biológicas}#.\\
+Se nenhum for explicitamente definido, então esse campo não será utilizado.
+
+{\blue
+\begin{verbatim}\department{<Nome do Departamento>}\end{verbatim}
+\normalcolor}
+
+O comando \verb#\department# especifica o departamento acadêmico
+no qual o trabalho foi desenvolvido,
+\eg\\
+\verb#  \department{Departameto de Química Fundamental}#.\\
+Se nenhum for explicitamente definido, então esse campo não será utilizado.
+
+{\blue
+\begin{verbatim}\address{<Endereço da Instituição>}\end{verbatim}
+\normalcolor}
+
+O comando \verb#\address# normalmente deve ser usado para identificar a cidade
+na qual se situa a instituição, \eg\\
+\verb#  \address{Campina Grande}#.\\
+O valor padrão é ``Recife''.
+
+
+\subsection{Identificação do Programa}
+
+{\blue
+\begin{verbatim}\program{<Nome do Programa de Pós-graduação>}\end{verbatim}
+\normalcolor}
+
+O comando \verb#\program# é usado para identificar o programa acadêmico de pós-
+graduação, \eg\\
+\verb#  \program{Doutorado em Matemática Computacional}#.\\
+Esse valor deve ser sempre definido, caso contrário o valor de alerta
+``Programa não especificado'' será utilizado.
+
+{\blue
+\begin{verbatim}\majorfield{<Área de Titulação>}\end{verbatim}
+\normalcolor}
+
+O comando \verb#\majorfield# é usado para identificar a área de titulação do
+candidato, \eg\\
+\verb#  \majorfield{Ciência da Computação}#.\\
+Esse valor deve ser sempre definido, caso contrário o valor de alerta
+``Área não especificada'' será utilizado.
+
+\subsection{Identificação do Autor e Orientador(es)}
+
+{\blue
+\begin{verbatim}\author{<Nome do Autor>}\end{verbatim}
+\normalcolor}
+
+O comando \verb#\author#, a exemplo do que acontece nas classes padrão do \LaTeX,
+ define o nome do autor da obra, \eg\\
+\verb#  \author{José Firmino da Silva}#.\\
+Esse valor deve ser sempre definido, caso contrário o valor de alerta
+``Autor não especificado'' será utilizado.
+
+{\blue
+\begin{verbatim}\adviser[f]{<Nome do(da) Orientador(a)>}\end{verbatim}
+\normalcolor}
+
+O comando \verb#\adviser# define o nome do orientador ou orientadora do trabalho.
+No caso de orientador do sexo feminino, a opção \verb#[f]# deve ser
+utilizada, \eg\\
+\verb#  \adviser{Prof. Dr. José da Silva}#.\\
+\verb#  \adviser[f]{Profa. Dra. Maria da Silva}#.\\
+Esse valor deve ser sempre definido, caso contrário o valor de alerta
+``Orientador não especificado'' será utilizado.
+
+{\blue
+\begin{verbatim}\coadviser[f]{<Nome do(da) Co-orientador(a)>}\end{verbatim}
+\normalcolor}
+
+O comando \verb#\coadviser# define o nome do co-orientador ou co-orientadora
+do trabalho, se houver.
+No caso de co-orientador do sexo feminino, a opção \verb#[f]# deve ser
+utilizada, \eg\\
+\verb#  \coadviser[f]{Profa. Dra. Ana da Silva}#.\\
+Se esse valor não for explicitamente definido, então o campo não será utilizado.
+
+
+\subsection{Identificação do Trabalho}
+
+{\blue
+\begin{verbatim}\title{<Titulo da tese ou dissertação>}\end{verbatim}
+\normalcolor}
+
+A exemplo do que acontece nas classes padrão do \LaTeX, o comando \verb#\title#
+é utilizado para especificar o título da obra, \eg\\
+\verb#  \title{Sobre a conjectura $P=NP$}#.\\
+Esse valor deve ser sempre definido, caso contrário o valor de alerta
+``Título não especificado'' será utilizado.
+
+{\blue
+\begin{verbatim}\date{<Data da defesa>}\end{verbatim}
+\normalcolor}
+
+O comando \verb#\date# é normalmente utilizado para indicar a data da defesa da
+tese ou dissertação, \eg\\
+\verb#  \date{10 de Março de 2003}#\\
+Se nenhum valor for especificado, então a data atual será utilizada.
+
+
+\section{Parte Pré-textual}\label{sec_front}
+
+Os capítulos que compõem a tese ou dissertação propriamente dita
+são sempre precedidas por algumas páginas onde se incluem: folha de rosto,
+sumário, resumos, etc. Na classe padrão \textsf{book}, esse material é indicado
+pelo comando \verb#\frontmatter#, como vimos na \secref{sec_str}. A \ufpethesis
+define alguns comandos e ambientes para geração de conteúdo pertencente a esta
+parte da obra. Esses comandos são apresentados a seguir na ordem segundo a
+qual devem ser invocados.
+
+{\blue
+\begin{verbatim}\frontpage\end{verbatim}
+\normalcolor}
+
+O comando \verb#\frontpage# é utilizado para gerar automaticamente a
+\emph{folha de rosto} da tese ou dissertação a partir do conteúdo informado nos 
+comandos de identificação da obra. A segunda página deste documento exemplifica 
+o resultado desse comando.
+
+{\blue
+\begin{verbatim}\presentationpage\end{verbatim}
+\normalcolor}
+
+O comando \verb#\presentationpage# é utilizado para gerar, também a partir do
+conteúdo informado nos comandos de identificação, a chamada
+\emph{portada} ou \emph{frontispício}, cuja função é apresentar a tese ou
+dissertação. A terceira página deste documento ilustra
+o resultado desse comando.
+
+{\blue
+\begin{verbatim}
+\begin{dedicatory}
+  <Dedicatória>
+\end{dedicatory}
+\end{verbatim}
+\normalcolor}
+
+O ambiente \texttt{dedicatory} produz uma página com a dedicatória do
+trabalho. Por exemplo, a quarta página deste documento foi gerada a partir do
+código\\
+\verb#  \begin{dedicatory}#\\
+\verb#  A todos os desenvolvedores do \TeX/\LaTeX~#\\
+\verb#  espalhados ao redor do mundo.#\\
+\verb#  \end{dedicatory}#
+
+{\blue
+\begin{verbatim}\acknowledgements\end{verbatim}
+\normalcolor}
+
+A macro \verb#\acknowledgements# demarca os tradicionais
+agradecimentos. A quinta página deste documento ilustra o resultado
+dessa instrução.
+
+{\blue
+\begin{verbatim}
+\begin{epigraph}[<nota>]{<autor>}
+  <citação>
+\end{epigraph}
+\end{verbatim}
+\normalcolor}
+
+O ambiente \texttt{epigraph} produz a chamada \emph{epígrafe}, que consiste em
+uma citação, normalmente colocada no início do texto e que, de preferência, deve
+ter relação direta com o tema do trabalho. O argumento obrigatório \verb#<autor>#
+indica o autor da passagem e o argumento opcional \verb#<nota># provê alguma informação
+adicional sobre o texto como, por exemplo, a obra de onde foi retirada e/ou a
+data de sua autoria. Por exemplo, a sexta página deste documento foi produzida a
+partir do seguinte código:\\
+\small
+\verb#  \begin{epigraph}[Ilusões Perdidas]{Honoré de Balzac}#\\
+\verb#  A impressão é para os manuscritos o que o teatro é para as mulheres:#\\
+\verb#  ilumina as belezas e os defeitos; tanto mata como dá vida; uma falha#\\
+\verb#  salta então aos olhos tão vivamente quanto os belos pensamentos.#\\
+\verb#  \end{epigraph}#\\
+\normalsize
+
+{\blue
+\begin{verbatim}
+\resumo
+  <resumo do trabalho>
+\begin{keywords}
+  <palavras-chave>
+\end{keywords}
+\end{verbatim}
+\normalcolor}
+
+O comando \verb#\resumo# inicia o chamado \emph{resumo analítico} ou
+\emph{sinopse} do texto.
+Ao final do resumo, é comum incluir uma lista das palavras-chave do texto, lista
+essa que deve, então, ser englobada pelo ambiente \verb#keywords#. A sétima
+página deste documento ilustra o resultado dessas instruções.
+
+{\blue
+\begin{verbatim}
+\abstract
+  <resumo do trabalho em Inglês>
+\begin{keywords}
+  <palavras-chave em Inglês>
+\end{keywords}
+\end{verbatim}
+\normalcolor}
+
+Também é comum incluir-se nas teses e dissertações um resumo do trabalho em
+Inglês (língua franca da comunidade científica). Para tanto, a \ufpethesis
+oferece o comando \verb#\abstract# completamente análogo ao comando
+\verb#\resumo# acima. O resultado do \verb#\abstract# pode ser apreciado na
+oitava página deste documento.
+
+Seguindo o conteúdo apresentado acima, tem-se, ainda como paratexto,
+o \emph{índice geral} ou \emph{sumário}, a \emph{lista de figuras} e a
+\emph{lista de tabelas}, que podem ser produzidos diretamente a partir
+dos seguintes comandos:
+
+{\blue
+\begin{verbatim}
+\tableofcontents
+\listoffigures
+\listoftables
+\end{verbatim}
+\normalcolor}
+
+
+\section{Parte Textual}\label{sec_main}
+
+\subsection{Seções}
+O conteúdo do texto propriamente dito, iniciado pelo comando \verb#\mainmatter#,
+segue a estrutura padrão da classe \textsf{book} com ``seções'' hierarquicamente
+organizadas em
+\begin{center}
+\verb#\part# $\supset$ \verb#\chapter# $\supset$
+\verb#\section# $\supset$ \verb#\subsection# $\supset$
+\verb#\subsubsection# $\supset$ \verb#\paragraph#.
+\end{center}
+A \ufpethesis apenas redefine a aparência de cada um dos comandos acima, contudo
+sua utilização permanece a mesma da classe padrão \textsf{book}.
+
+{\blue
+\begin{verbatim}
+\begin{quotation}[<nota>]{<autor>}
+  <citação>
+\end{quotation}
+\end{verbatim}
+\normalcolor}
+
+As citações apresentadas normalmente após o título de cada capítulo são
+produzidas através do ambiente \texttt{quotation}, que deve seguir imediatamente
+o comando \verb#\chapter# e cujo funcionamento é idêntico ao do ambiente
+\texttt{epigraph} discutido acima.
+
+
+\subsection{Figuras e Tabelas}
+As figuras devem ser incluídas utilizando-se o ambiente \verb#figure# das
+classes padrão do \LaTeX. Na \ufpethesis apenas a aparência das legendas foi
+modificada. A \figref{fig_exe}, produzidas pelo código abaixo,
+ilustra as modificações feitas.
+\begin{verbatim}
+\begin{figure}[ht]
+\begin{center}
+\includegraphics{tfz.eps}
+\end{center}
+\caption[Uma figura com legenda grande.]{Uma figura com legenda
+grande: repare que, neste caso, é interessante  utilizar o 
+argumento opcional do comando \texttt{caption}, contendo a legenda 
+a ser apresentada na Lista de Figuras.}\label{fig_exe}
+\end{figure}
+\end{verbatim}
+
+\begin{figure}[ht]
+\begin{center}
+\includegraphics{tfz.eps}
+\end{center}
+\caption[Uma figura com legenda grande.]{Uma figura com legenda grande:
+repare que, neste caso, é interessante  utilizar o argumento opcional do
+comando \texttt{caption}, contendo a legenda a ser apresentada na Lista de
+Figuras.}\label{fig_exe}
+\end{figure}
+
+As tabelas devem ser envolvidas pelo ambiente \texttt{table}, conforme ilustra o
+código abaixo, usado para codificar a \tabref{tab_exe}.
+\begin{verbatim}
+\begin{table}[ht]
+\begin{center}
+\begin{tabular}{|l|r|}
+\hline Calorias & 247\\
+\hline Cálcio & 118,00\\
+\hline Ferro & 58,00\\
+\hline Fibras & 16,90g\\
+\hline Proteínas & 3,80g\\
+\hline Vit.B1 & 11,80\\
+\hline Vit.B2 & 0,36\\
+\hline Vit.C & 0,01\\
+\hline
+\end{tabular}
+\end{center}
+\caption{Açaí - Tabela Nutricional (100g de polpa)}\label{tab_exe}
+\end{table}
+\end{verbatim}
+
+\begin{table}[ht]
+\begin{center}
+\begin{tabular}{|l|r|}
+\hline Calorias & 247\\
+\hline Cálcio & 118,00\\
+\hline Ferro & 58,00\\
+\hline Fibras & 16,90g\\
+\hline Proteínas & 3,80g\\
+\hline Vit.B1 & 11,80\\
+\hline Vit.B2 & 0,36\\
+\hline Vit.C & 0,01\\
+\hline
+\end{tabular}
+\end{center}
+\caption{Açaí - Tabela Nutricional (100g de polpa)}\label{tab_exe}
+\end{table}
+
+\subsection{Teoremas}
+
+A \ufpethesis oferece 5 ambientes independentemente numerados para afirmações
+matemáticas.
+
+{\blue
+\begin{verbatim}
+\begin{Def}[<Comentário>]
+  <Definição>
+\end{Def}
+\end{verbatim}
+\normalcolor}
+
+O ambiente \texttt{Def} é utilizado para definições. É comum incluir como
+\verb#<Comentário># o nome do objeto ou conceito a ser definido. Por exemplo,\\
+\verb#  \begin{Def}[Conjunto compacto]#\\
+\verb#  Um conjunto $A\subset\mathbb{R}^n$ é dito \emph{compacto}#\\
+\verb#  se ele é fechado e limitado.#\\
+\verb#  \end{Def}#\\
+produz como resultado:
+\begin{Def}[Conjunto compacto]
+Um conjunto $A\subset\mathbb{R}^n$ é dito \emph{compacto}
+se ele é fechado e limitado.
+\end{Def}
+
+{\blue
+\begin{verbatim}
+\begin{Theo}[<Comentário>]
+  <Enunciado>
+\end{Theo}
+\end{verbatim}
+\normalcolor}
+
+O ambiente \texttt{Theo} é utilizado para teoremas. É comum incluir como
+\verb#<Comentário># o nome do teorema ou do seu autor. Por exemplo,\\
+\verb#  \begin{Theo}[Teorema Egregium, Gauss]#\\
+\verb#  A curvatura Gaussiana $K$ de uma superfície é invariante#\\
+\verb#  por isometrias locais.#\\
+\verb#  \end{Theo}# \\
+produz como resultado:
+\begin{Theo}[Teorema Egregium, Gauss]\label{teo_exe}
+A curvatura Gaussiana $K$ de uma superfície é invariante
+por isometrias locais.
+\end{Theo}
+
+Análogos ao ambiente \texttt{Theo}, são os ambientes \texttt{Axi},
+\texttt{Conj}, \texttt{Lem}, \texttt{Prop} e \texttt{Cor} para 
+axiomas, conjecturas, lemas, proposições e corolários,
+respectivamente. 
+
+Nessa segunda versão da \ufpethesis, os ambientes de teorema foram re-escritos através do pacote \textsf{amsthm}. Para demonstrações, deve ser utilizado o ambiente
+\texttt{proof} desse pacote.
+
+{\blue
+\begin{verbatim}
+\begin{proof}
+  <Prova>
+\end{proof}
+\end{verbatim}
+\normalcolor}
+
+O ambiente proof adiciona o símbolo QED ``$\qedsymbol$'' ao final da última linha da demonstração alinhado à direita. Repare, entretanto, que algumas demonstrações são constituídas de uma lista de itens (ambiente itemize ou enumerate) e, neste caso, o QED seria acrescentado na linha após a enumeração. Para evitar esse comportamento, devemos indicar o final da prova através do comando \verb#\qedhere# ao final do último item:
+
+\begin{tabular}{p{4cm}p{1cm}p{6cm}}
+\begin{proof}~
+\begin{enumerate}[a)]
+\item Primeiro item
+\item Segundo item
+\item Terceiro item
+\end{enumerate}
+\end{proof}
+& &
+\begin{verbatim}
+\begin{proof}~
+\begin{enumerate}[a)]
+\item Primeiro item
+\item Segundo item
+\item Terceiro item
+\end{enumerate}
+\end{proof}
+\end{verbatim}
+\\
+\begin{proof}~
+\begin{enumerate}[a)]
+\item Primeiro item
+\item Segundo item
+\item Terceiro item\qedhere
+\end{enumerate}
+\end{proof}
+& &
+\begin{verbatim}
+\begin{proof}~
+\begin{enumerate}[a)]
+\item Primeiro item
+\item Segundo item
+\item Terceiro item\qedhere
+\end{enumerate}
+\end{proof}
+\end{verbatim}
+\end{tabular}
+
+\subsection{Referências Cruzadas}
+
+Alguns comandos são oferecidos para tornar mais conveniente a produção de
+referências cruzadas, a saber:
+
+{\blue
+\begin{verbatim}
+\figref{<rótulo da figura>}
+\tabref{<rótulo da tabela>}
+\eqnref{<rótulo da equação>}
+\chapref{<rótulo do capítulo>}
+\appref{<rótulo do apêndice>}
+\secref{<rótulo da seção>}
+\defref{<rótulo da definição>}
+\axiref{<rótulo do axioma>}
+\conjref{<rótulo da conjectura>}
+\propref{<rótulo da proposição>}
+\lemref{<rótulo do lema>}
+\theoref{<rótulo do teorema>}
+\corref{<rótulo do corolário>}
+\pgref{<rótulo da página>}
+\end{verbatim}
+\normalcolor}
+
+Por exemplo, o código\\
+\verb#  Uma refererência para a \figref{fig_exe} e para o \theoref{teo_exe}.#\\
+produz como resultado: ``Uma refererência para a \figref{fig_exe} e para o
+\theoref{teo_exe}.'' O uso dos demais comandos parece óbvio, lembrando que o
+comando \verb#\eqnref# deve ser utilizado para referenciar fórmulas produzidas
+pelo ambiente \texttt{equation}.
+
+\subsection{Listas}
+
+Normalmente, as listas criadas através dos ambientes \verb#itemize#  e \verb#enumerate# incluem espaçamento de parágrafo entre os itens e entre a enumeração em si e o texto imediatamente antes e depois. Muitas vezes, principalmente em se tratando de listas breves, esse espaçamento parece excessivo, e o resultado obtido não é o ideal. A versão original da \ufpethesis continha dois ambientes, \verb#sitemize# e \verb#senumerate# para a criação de listas sem esse espaçamento extra. Infelizmente, esses ambientes introduziam problemas de compatibilidade com o pacote \textsf{enumerate} e foram removidos na versão atual. Ao invés deles, deve ser utilizado o pacote \textsf{paralist} que oferece soluções mais gerais e elegantes para diversos tipos de listas.
+
+\begin{tabular}{p{4cm}p{1cm}p{6cm}}
+\bigskip
+Para fazer a massa:
+\begin{enumerate}[a)]
+\item Farinha de trigo
+\item Leite
+\item Ovos
+\end{enumerate}
+& &
+\begin{verbatim}
+Para fazer a massa:
+\begin{enumerate}[a)]
+\item Farinha de trigo
+\item Leite
+\item Ovos
+\end{enumerate}
+\end{verbatim}
+\\
+\bigskip
+Para fazer a massa:
+\begin{compactenum}[a)]
+\item Farinha de trigo
+\item Leite
+\item Ovos
+\end{compactenum}
+& &
+\begin{verbatim}
+\usepackage{paralist}
+Para fazer a massa:
+\begin{compactenum}[a)]
+\item Farinha de trigo
+\item Leite
+\item Ovos
+\end{compactenum}
+\end{verbatim}
+\end{tabular}
+
+
+\section{Parte Pós-textual}\label{sec_back}
+
+A última parte da tese ou dissertação contém, além dos eventuais apêndices,
+material de referência como bibliografia (obrigatório) e índices especiais
+como o \emph{índice analítico}, \emph{índice remissivo},
+\emph{índice onomástico}, etc.
+
+\subsection{Apêndices}
+
+Apêndices são capítulos extras contendo material de apoio ao texto principal
+de autoria própria ou de terceiros. O ínício dos apêndices é demarcado pelo comando
+\verb#\appendix# da classe padrão \textsf{book}. A partir desse comando
+(que deve ser emitido apenas uma vez), cada apêndice é criado normalmente
+através do comando \verb#\chapter#, sendo que, agora, os capítulos (apêndices)
+recebem rótulos literais: Apêndice A, Apêndice B, e assim sucessivamente.
+
+\subsection{Bibliografia e Índices}
+
+A \ufpethesis não oferece nada em particular para a produção da
+bibliografia\footnote{Para auxiliar na produção da bibliografia, o autor sugere o
+\BibTeX press, disponível em \url{http://www.cin.ufpe.br/~paguso/bibtexpress}.} ou
+dos índices. Esse material deve ser criado da maneira usual discutida, por
+exemplo, em \cite{goossens:1994}.
+
+\subsection{Cólofon}
+
+{\blue
+\begin{verbatim}
+\colophon
+\end{verbatim}
+\normalcolor}
+
+Apenas para ajudar a divulgação da \ufpethesis, o comando \verb#\colophon# é 
+oferecido. Esse comando tem como resultado a geração de uma página como a 
+última página deste documento e deve ser usado no final do texto apenas quando 
+possível e se o usuário julgar que este trabalho merece a propaganda ;-)
+
+\section{Gerando Documentos para Leitura na Tela}\label{sec:scr}
+
+A \ufpethesis oferece uma opção, \verb#scr#, destinada à produção de documentos em formato eletrônico, mais especificamente \emph{Adobe Portable Document Format} (PDF), para serem lidos na tela. Essa opção, quando informada explicitamente, faz com que, essencialmente, o documento seja processado com auxílio do driver \texttt{dvipdfm} para conversão DVI$\rightarrow$PDF, e que seja carregado o pacote \textsf{hyperref} para geração dos \emph{links} e \emph{bookmarks} para navegação pelo documento. O resultado prático pode ser observado neste próprio documento (obviamente, quando visto na tela com um programa adequado, como o \href{http://www.adobe.com/products/acrobat/readstep2.html}{Adode Acrobat Reader}, por exemplo).
+
+Em resumo, para gerar a tese em formato PDF, deve-se:
+\begin{enumerate}
+\item Carregar a \ufpethesis com a opção \verb#scr#,
+
+\eg \verb#\documentclass[phd,src]{ufpethesis}#
+
+\item Executar o \LaTeX\ para gerar o DVI,
+
+\eg \verb#> latex tese.tex#
+
+\textbf{Obs.} pode ser necessário executar o \LaTeX\ mais de uma vez para o correto processamento do texto.
+
+\item Converter o DVI em PDF com o \verb#dvipdfm#
+
+\eg\verb#> dvipdfm tese.dvi#
+\end{enumerate}
+
+\noindent\textbf{Importante:} A opção \verb#scr# também faz com que sejam carregados os pacotes \textsf{color} e \textsf{graphicx}. Ao utilizar essa opção, esses pacotes não devem ser carregados explicitamente no preâmbulo do documento.
+
+
+\section{Miscelânea}
+
+\subsection{Espaçamento Duplo}
+
+Alguns usuários têm indagado sobre como podem utilizar a \ufpethesis com espaçamento duplo entre as linhas. A \ufpethesis não possui nem vai possuir uma opção para espaçamento duplo. A razão é simples: a classe foi criada com o objetivo principal de favorecer a criação de documentos técnicos belos e bem-acabados. A esse respeito, deve-se tomar como referência livros de editoras tradicionais que zelam pela apresentação do seu material gráfico. Espaçamento duplo confere uma aparência bizarra, amadora, desequilibrada e desconfortável ao material impresso. Tenha em mente que muitas dessas ``regras'' foram criadas no tempo da máquina de escrever, e parecem não fazer mais o menor sentido no nosso caso. Aposto que você nunca viu, afinal, um livro moderno de uma editora tradicional, ou mesmo uma revista com espaçamento duplo. Se esta for uma regra imposta pela sua instituição (felizmente, não é o caso da UFPE), tente argumentar com a bibliotecária ou pessoa responsável.
+
+Uma vez feita a ressalva acima, a única hipótese na qual se admite alguma utilidade em se empregar espaçamento duplo é quando a versão do documento não é final, quando ainda vai ser submetido à revisão. Nesse caso, o espaço extra entre as linhas serve para o revisor escrever ali as suas correções e observações. Apenas neste caso, deve o usuário utilizar um pacote \LaTeX\ apropriado, como por exemplo o pacote \textsf{setspace}. Após carregar o pacote através da diretiva \verb#\usepackage{setspace}#, o autor deve controlar explicitamente o espaçamento através dos comandos \verb#\doublespacing#, \verb#\onehalfspacing# e \verb#\singlespacing#, que chaveiam o espaçamento entre duplo, um-e-meio e simples, respectivamente. Advirto que a classe não foi testada nessas condições e que, portanto, os resultados obtidos são ainda menos garantidos. Reitero que o espaçamento duplo só deve ser utilizado na \ufpethesis em versões não-finais. Se, por fim, for absolutamente inevitável utilizar espaçamento duplo na versão final, ficaria mais feliz se não fosse incluído o cólofon com referência à classe.
+
+
+\subsection{Impressão em Face Simples \emph{versus} Dupla Face}
+
+Breve, deve-se dar preferência, tanto quanto possível, à impressão em face dupla (\emph{duplex}). A impressão em frente-e-verso reduz o volume do material impresso além de conferir-lhe um aspecto mais harmônico, simétrico e profissional. Qualquer exigência pela impressão em face única é, em princípio, injustificada,  provavelmente, resquício dos tempos da máquina de escrever e do papel-carbono. Por outro lado, infelizmente boa parte dos usuários não possui acesso a impressoras duplex. A quase totalidade das impressoras domésticas, por exemplo, não oferecem esse recurso. Nesse caso, o usuário pode adotar uma de duas soluções. A primeira seria imprimir cada cópia em duas rodadas, imprimindo primeiro todas as páginas ímpares, e depois as páginas pares no verso das páginas ímpares. Este procedimento, embora um pouco mais trabalhoso, pode ser facilmente executado em uma impressora doméstica e produz o mesmo resultado de uma impressão duplex automática. A segunda solução seria utilizar a opção \verb#oneside# (vide \secref{sec_str}) para gerar o documento na versão própria para impressão em face simples. Jamais se deve utilizar a opção \verb#twoside# (opção padrão) para documentos a serem impressos em face única sob pena de produzir páginas em branco no meio do documento, páginas essas que não podem ser simplesmente descartadas sem prejuízo à numeração.
+
+
+\chapter{Comentários Finais}\label{cap_comment}
+\begin{quotation}[Aphorisms]{Georg Christoph Lichtenberg}
+Não existe no mundo um artigo mais estranho que o livro.\\
+É impresso por gente que não o compreende;\\
+é vendido por gente que não o compreende;\\
+é encadernado, criticado e lido por gente que não o compreende;\\
+e agora, é até mesmo escrito por gente que não o compreende
+\end{quotation}
+
+Neste texto, apresentamos a \ufpethesis, uma classe \LaTeX\ para a confecção de
+teses e dissertações na UFPE. Acreditamos que o \TeX/\LaTeX\ é a plataforma
+ideal para a produção de textos científicos formais, não só porque favorece a
+organização e a coerência, mas também porque o extremo cuidado e perfeccionismo
+dos seus autores faz com que o resultado obtido seja sempre o mais belo.
+Encorajamos não só os autores das ciências exatas, que já são tradicionais
+usuários do sistema, mas também os estudantes das ciências humanas, biológicas,
+médicas, etc. a experimentarem o poder e flexibilidade dessa magnífica
+ferramenta e esperamos que a \ufpethesis seja de valia nessa prazeirosa jornada.
+
+Gostaríamos também de convidar os usuários \TeX perientes desta e de outras
+instituições a contribuirem para a correção e evolução da \ufpethesis. Emails
+com críticas (elogios também ;-)) e sugestões devem ser enviados para
+\href{mailto:paguso@cin.ufpe.br}{paguso@cin.ufpe.br} e serão sempre bem-vindas. Apesar do nome, a
+\ufpethesis, como já mencionamos é genérica o suficiente e, portanto, autores de outras
+instituições são particularmente encorajados a utilizar e adaptar a classe
+às suas necessidades.
+
+Por fim, resta reiterar que a \ufpethesis é um produto gratuito e extra-oficial,
+ou seja, não possui garantia de qualquer tipo nem tampouco está oficialmente
+vinculado à UFPE. Esperamos, entretanto, que ela possa ser útil à comunidade e que
+todos fiquem satisfeitos com o resultado.
+
+
+\appendix
+
+\chapter{Template}\label{apen_template}
+
+Apresentamos aqui o \emph{template} distribuído juntamente com a \ufpethesis.
+
+\footnotesize
+
+\begin{verbatim}
+%% Template para dissertação/tese na classe UFPEthesis
+%% versão 0.9
+%% (c) 2005 Paulo G. S. Fonseca
+%% www.cin.ufpe.br/~paguso/ufpethesis
+
+%% Carrega a classe ufpethesis
+%% Opções: * Idiomas
+%%           pt   - português (padrão)
+%%           en   - inglês
+%%         * Tipo do Texto
+%%           bsc  - para monografias de graduação
+%%           msc  - para dissertações de mestrado (padrão)
+%%           qual - exame de qualificação doutorado
+%%           prop - proposta de tese doutorado
+%%           phd  - para teses de doutorado
+%%         * Mídia
+%%           scr  - para versão eletrônica
+%%         * Estilo
+%%           classic - estilo original à la TAOCP (deprecated)
+%%           std     - novo estilo à la CUP (padrão)
+%%         * Paginação
+%%           oneside - para impressão em face única
+%%           twoside - para impressão em frente e verso (padrão)
+\documentclass{ufpethesis}
+
+%% Preâmbulo:
+%% coloque aqui o seu preâmbulo LaTeX, i.e., declaração de pacotes,
+%% (re)definições de macros, medidas, etc.
+
+%% Identificação:
+
+% Universidade
+% e.g. \university{Universidade de Campinas}
+% Na UFPE, comente a linha a seguir
+\university{<NOME DA UNIVERSIDADE>}
+
+% Endereço (cidade)
+% e.g. \address{Campinas}
+% Na UFPE, comente a linha a seguir
+\address{<CIDADE DA IES>}
+
+% Instituto ou Centro Acadêmico
+% e.g. \institute{Centro de Ciências Exatas e da Natureza}
+% Comente se não se aplicar
+\institute{<NOME DO INSTITUTO OU CENTRO ACADÊMICO>}
+
+% Departamento acadêmico
+% e.g. \department{Departamento de Informática}
+% Comente se não se aplicar
+\department{<NOME DO DEPARTAMENTO>}
+
+% Programa de pós-graduação
+% e.g. \program{Pós-graduação em Ciência da Computação}
+\program{<NOME DO PROGRAMA>}
+
+% Área de titulação
+% e.g. \majorfield{Ciência da Computação}
+\majorfield{<NOME DA ÁREA DE TITULAÇÃO>}
+
+% Título da dissertação/tese
+% e.g. \title{Sobre a conjectura $P=NP$}
+\title{<TÍTULO DA OBRA>}
+
+% Data da defesa
+% e.g. \date{19 de fevereiro de 2003}
+\date{<DATA DA DEFESA>}
+
+% Autor
+% e.g. \author{José da Silva}
+\author{<NOME DO AUTOR>}
+
+% Orientador(a)
+% Opção: [f] - para orientador do sexo feminino
+% e.g. \adviser[f]{Profa. Dra. Maria Santos}
+\adviser{<NOME DO(DA) ORIENTADOR(A)>}
+
+% Orientador(a)
+% Opção: [f] - para orientador do sexo feminino
+% e.g. \coadviser{Prof. Dr. Pedro Pedreira}
+% Comente se não se aplicar
+\coadviser{NOME DO(DA) CO-ORIENTADOR(A)}
+
+%% Inicio do documento
+\begin{document}
+
+%%
+%% Parte pré-textual
+%%
+\frontmatter
+
+% Folha de rosto
+% Comente para ocultar
+\frontpage
+
+% Portada (apresentação)
+% Comente para ocultar
+\presentationpage
+
+% Dedicatória
+% Comente para ocultar
+\begin{dedicatory}
+<DIGITE A DEDICATÒRIA AQUI>
+\end{dedicatory}
+
+% Agradecimentos
+% Se preferir, crie um arquivo à parte e o inclua via \include{}
+\acknowledgements
+<DIGITE OS AGRADECIMENTOS AQUI>
+
+% Epígrafe
+% Comente para ocultar
+% e.g.
+%  \begin{epigraph}[Tarde, 1919]{Olavo Bilac}
+%  Última flor do Lácio, inculta e bela,\\
+%  És, a um tempo, esplendor e sepultura;\\
+%  Ouro nativo, que, na ganga impura,\\
+%  A bruta mina entre os cascalhos vela.
+%  \end{epigraph}
+\begin{epigraph}[<NOTA>]{<AUTOR>}
+<DIGITE AQUI A CITAÇÂO>
+\end{epigraph}
+
+% Resumo em Português
+% Se preferir, crie um arquivo à parte e o inclua via \include{}
+\resumo
+<DIGITE O RESUMO AQUI>
+% Palavras-chave do resumo em Português
+\begin{keywords}
+<DIGITE AS PALAVRAS-CHAVE AQUI>
+\end{keywords}
+
+% Resumo em Inglês
+% Se preferir, crie um arquivo à parte e o inclua via \include{}
+\abstract
+% Palavras-chave do resumo em Inglês
+\begin{keywords}
+<DIGITE AS PALAVRAS-CHAVE AQUI>
+\end{keywords}
+
+% Sumário
+% Comente para ocultar
+\tableofcontents
+
+% Lista de figuras
+% Comente para ocultar
+\listoffigures
+
+% Lista de tabelas
+% Comente para ocultar
+\listoftables
+
+%%
+%% Parte textual
+%%
+\mainmatter
+
+% É aconselhável criar cada capítulo em um arquivo à parte, digamos
+% "capitulo1.tex", "capitulo2.tex", ... "capituloN.tex" e depois
+% incluí-los com:
+% \include{capitulo1}
+% \include{capitulo2}
+% ...
+% \include{capituloN}
+
+%%
+%% Parte pós-textual
+%%
+\backmatter
+
+% Apêndices
+% Comente se não houver apêndices
+\appendix
+
+% É aconselhável criar cada apêndice em um arquivo à parte, digamos
+% "apendice1.tex", "apendice.tex", ... "apendiceM.tex" e depois
+% incluí-los com:
+% \include{apendice1}
+% \include{apendice2}
+% ...
+% \include{apendiceM}
+
+
+% Bibliografia
+% É aconselhável utilizar o BibTeX a partir de um arquivo, digamos "biblio.bib".
+% Para ajuda na criação do arquivo .bib e utilização do BibTeX, recorra ao
+% BibTeXpress em www.cin.ufpe.br/~paguso/bibtexpress
+\nocite{*}
+\bibliographystyle{alpha}
+\bibliography{biblio}
+
+% Cólofon
+% Inclui uma pequena nota com referência à UFPEThesis
+% Comente para omitir
+\colophon
+
+%% Fim do documento
+\end{document}
+\end{verbatim}
+
+\normalsize
+
+\nocite{*}
+\bibliographystyle{plain}
+\bibliography{manual}
+
+
+\colophon
+\end{document}

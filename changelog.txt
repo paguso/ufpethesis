@@ -1,0 +1,18 @@
+UFPEThesis
+
+03 July 2003
+    * Initial version 0.5 beta released
+
+01 November 2003
+    Revision 1: corrections and improvements submitted by Rafael Borges (rmb2@cin.ufpe.br)
+    * Corrected minor spelling erros
+    * Included new option 'bsc' for bachelor´s dissertations
+    * Removed latin1.sty file dependency
+    * Corrected 'babel' package loading with option 'brazil'
+
+11 November 2003
+    * Revision 1 changes commited
+    * Included new theorem-like environments 'Axioma'(Axi) and 'Conjectura'(conj)
+    * Included new cross-reference macros \axiref and \conjref for the environments above
+    * Documentation updated
+    * New version 0.7 beta released
