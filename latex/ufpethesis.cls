@@ -160,6 +160,7 @@ grau de \@degree\ em \@majorfield.}
   \gdef\@propname{Proposição}
   \gdef\@corname{Corolário}
   \gdef\@proofname{Prova}
+  \gdef\@examplename{Exemplo}
   \gdef\@figurename{Figura}
   \gdef\@tablename{Tabela}
   \gdef\@equationame{equação}
@@ -186,6 +187,7 @@ grau de \@degree\ em \@majorfield.}
   \gdef\@propname{Proposition}
   \gdef\@corname{Corollary}
   \gdef\@proofname{Proof}
+  \gdef\@examplename{Example}
   \gdef\@figurename{Figure}
   \gdef\@tablename{Table}
   \gdef\@equationame{equation}
@@ -720,6 +722,7 @@ grau de \@degree\ em \@majorfield.}
 	{}% Head spec (empty = same as plain style
 \theoremstyle{definition}
 \newtheorem{Def}{\@defname}[chapter]
+\newtheorem{Exp}{\@examplename}[chapter]
 \theoremstyle{theo}
 \newtheorem{Axi}{\@axiomname}[chapter]
 \newtheorem{Conj}{\@conjecturename}[chapter]
@@ -747,6 +750,7 @@ grau de \@degree\ em \@majorfield.}
 \newcommand{\theoref}[1]{\@theoname~\ref{#1}\xspace}
 \newcommand{\corref}[1]{\@corname~\ref{#1}\xspace}
 \newcommand{\propref}[1]{\@propname~\ref{#1}\xspace}
+\newcommand{\expref}[1]{\@examplename~\ref{#1}\xspace}
 \newcommand{\pgref}[1]{\@pagename~\pageref{#1}\xspace}
 
 
@@ -1201,6 +1205,7 @@ grau de \@degree\ em \@majorfield.}
 	{}% Head spec (empty = same as plain style
 \theoremstyle{definition}
 \newtheorem{Def}{\@defname}[chapter]
+\newtheorem{Exp}{\@examplename}[chapter]
 \theoremstyle{theo}
 \newtheorem{Axi}{\@axiomname}[chapter]
 \newtheorem{Conj}{\@conjecturename}[chapter]
@@ -1228,6 +1233,7 @@ grau de \@degree\ em \@majorfield.}
 \newcommand{\theoref}[1]{\@theoname~\ref{#1}\xspace}
 \newcommand{\corref}[1]{\@corname~\ref{#1}\xspace}
 \newcommand{\propref}[1]{\@propname~\ref{#1}\xspace}
+\newcommand{\expref}[1]{\@examplename~\ref{#1}\xspace}
 \newcommand{\pgref}[1]{\@pagename~\pageref{#1}\xspace}
 
 \fi\fi
