@@ -1,90 +1,95 @@
-%% Template para dissertaÁ„o/tese na classe UFPEthesis
-%% vers„o 0.9.2
+%% Template para disserta√ß√£o/tese na classe UFPEthesis
+%% vers√£o 0.9.2
 %% (c) 2005 Paulo G. S. Fonseca
 %% www.cin.ufpe.br/~paguso/ufpethesis
 
 %% Carrega a classe ufpethesis
-%% OpÁıes: * Idiomas
-%%           pt   - portuguÍs (padr„o)
-%%           en   - inglÍs
+%% Op√ß√µes: * Idiomas
+%%           pt   - portugu√™s (padr√£o)
+%%           en   - ingl√™s
 %%         * Tipo do Texto
-%%           bsc  - para monografias de graduaÁ„o
-%%           msc  - para dissertaÁıes de mestrado (padr„o)
-%%           qual - exame de qualificaÁ„o doutorado
+%%           bsc  - para monografias de gradua√ß√£o
+%%           msc  - para disserta√ß√µes de mestrado (padr√£o)
+%%           qual - exame de qualifica√ß√£o doutorado
 %%           prop - proposta de tese doutorado
 %%           phd  - para teses de doutorado
-%%         * MÌdia
-%%           scr  - para vers„o eletrÙnica (PDF) / consulte o guia do usuario
+%%         * M√≠dia
+%%           scr  - para vers√£o eletr√¥nica (PDF) / consulte o guia do usuario
 %%         * Estilo
-%%           classic - estilo original ‡ la TAOCP (deprecated)
-%%           std     - novo estilo ‡ la CUP (padr„o)
-%%         * PaginaÁ„o
-%%           oneside - para impress„o em face ˙nica
-%%           twoside - para impress„o em frente e verso (padr„o)
+%%           classic - estilo original √† la TAOCP
+%%           modern  - estilo √† la CUP (padr√£o)
+%%           ugly    - formato da UFPE com parte pr√©-textual no formato ABNT
+%%         * Pagina√ß√£o
+%%           oneside - para impress√£o em face √∫nica
+%%           twoside - para impress√£o em frente e verso (padr√£o)
 \documentclass{ufpethesis}
 
-%% Pre‚mbulo:
-%% coloque aqui o seu pre‚mbulo LaTeX, i.e., declaraÁ„o de pacotes,
-%% (re)definiÁıes de macros, medidas, etc.
+%% Pre√¢mbulo:
+%% coloque aqui o seu pre√¢mbulo LaTeX, i.e., declara√ß√£o de pacotes,
+%% (re)defini√ß√µes de macros, medidas, etc.
 
-%% IdentificaÁ„o:
+%% Identifica√ß√£o:
 
 % Universidade
 % e.g. \university{Universidade de Campinas}
 % Na UFPE, comente a linha a seguir
-\university{<NOME DA UNIVERSIDADE>}
+\university{NOME DA UNIVERSIDADE}
 
-% EndereÁo (cidade)
+% Modifique o comando \universitylogo para alterar o logo da universidade
+% e.g.
+% \renewcommand{\universitylogo}{\includegraphics{newlogo.pdf}}
+
+% Endere√ßo (cidade)
 % e.g. \address{Campinas}
 % Na UFPE, comente a linha a seguir
-\address{<CIDADE DA IES>}
+\address{CIDADE DA IES}
 
-% Instituto ou Centro AcadÍmico
-% e.g. \institute{Centro de CiÍncias Exatas e da Natureza}
-% Comente se n„o se aplicar
-\institute{<NOME DO INSTITUTO OU CENTRO ACAD MICO>}
+% Instituto ou Centro Acad√™mico
+% e.g. \institute{Centro de Ci√™ncias Exatas e da Natureza}
+% Comente se n√£o se aplicar
+\institute{NOME DO INSTITUTO OU CENTRO ACAD√äMICO}
 
-% Departamento acadÍmico
-% e.g. \department{Departamento de Inform·tica}
-% Comente se n„o se aplicar
-\department{<NOME DO DEPARTAMENTO>}
+% Departamento acad√™mico
+% e.g. \department{Departamento de Inform√°tica}
+% Comente se n√£o se aplicar
+\department{NOME DO DEPARTAMENTO}
 
-% Programa de pÛs-graduaÁ„o
-% e.g. \program{PÛs-graduaÁ„o em CiÍncia da ComputaÁ„o}
-\program{<NOME DO PROGRAMA>}
+% Programa de p√≥s-gradua√ß√£o
+% e.g. \program{P√≥s-gradua√ß√£o em Ci√™ncia da Computa√ß√£o}
+\program{NOME DO PROGRAMA}
 
-% ¡rea de titulaÁ„o
-% e.g. \majorfield{CiÍncia da ComputaÁ„o}
-\majorfield{<NOME DA ¡REA DE TITULA«√O>}
+% √Årea de titula√ß√£o
+% e.g. \majorfield{Ci√™ncia da Computa√ß√£o}
+\majorfield{NOME DA √ÅREA DE TITULA√á√ÉO}
 
-% TÌtulo da dissertaÁ„o/tese
+% T√≠tulo da disserta√ß√£o/tese
 % e.g. \title{Sobre a conjectura $P=NP$}
-\title{<TÕTULO DA OBRA>}
+\title{T√çTULO DO TRABALHO}
 
 % Data da defesa
 % e.g. \date{19 de fevereiro de 2003}
-\date{<DATA DA DEFESA>}
+\date{DATA DA DEFESA}
 
 % Autor
-% e.g. \author{JosÈ da Silva}
-\author{<NOME DO AUTOR>}
+% e.g. \author{Jos√© da Silva}
+\author{NOME DO AUTOR}
 
 % Orientador(a)
-% OpÁ„o: [f] - para orientador do sexo feminino
+% Op√ß√£o: [f] - para orientador do sexo feminino
 % e.g. \adviser[f]{Profa. Dra. Maria Santos}
-\adviser{<NOME DO(DA) ORIENTADOR(A)>}
+\adviser{NOME DO(DA) ORIENTADOR(A)}
 
 % Orientador(a)
-% OpÁ„o: [f] - para orientador do sexo feminino
+% Op√ß√£o: [f] - para orientador do sexo feminino
 % e.g. \coadviser{Prof. Dr. Pedro Pedreira}
-% Comente se n„o se aplicar
+% Comente se n√£o se aplicar
 \coadviser{NOME DO(DA) CO-ORIENTADOR(A)}
 
 %% Inicio do documento
 \begin{document}
 
 %%
-%% Parte prÈ-textual
+%% Parte pr√©-textual
 %%
 \frontmatter
 
@@ -92,52 +97,52 @@
 % Comente para ocultar
 \frontpage
 
-% Portada (apresentaÁ„o)
+% Portada (apresenta√ß√£o)
 % Comente para ocultar
 \presentationpage
 
-% DedicatÛria
+% Dedicat√≥ria
 % Comente para ocultar
 \begin{dedicatory}
-<DIGITE A DEDICAT“RIA AQUI>
+DIGITE A DEDICAT√ìRIA AQUI
 \end{dedicatory}
 
 % Agradecimentos
-% Se preferir, crie um arquivo ‡ parte e o inclua via \include{}
+% Se preferir, crie um arquivo √† parte e o inclua via \include{}
 \acknowledgements
-<DIGITE OS AGRADECIMENTOS AQUI>
+DIGITE OS AGRADECIMENTOS AQUI
 
-% EpÌgrafe
+% Ep√≠grafe
 % Comente para ocultar
 % e.g.
 %  \begin{epigraph}[Tarde, 1919]{Olavo Bilac}
-%  ⁄ltima flor do L·cio, inculta e bela,\\
-%  …s, a um tempo, esplendor e sepultura;\\
+%  √öltima flor do L√°cio, inculta e bela,\\
+%  √âs, a um tempo, esplendor e sepultura;\\
 %  Ouro nativo, que, na ganga impura,\\
 %  A bruta mina entre os cascalhos vela.
 %  \end{epigraph}
-\begin{epigraph}[<NOTA>]{<AUTOR>}
-<DIGITE AQUI A CITA«¬O>
+\begin{epigraph}[NOTA]{AUTOR}
+DIGITE AQUI A CITA√á√ÉO
 \end{epigraph}
 
-% Resumo em PortuguÍs
-% Se preferir, crie um arquivo ‡ parte e o inclua via \include{}
+% Resumo em Portugu√™s
+% Se preferir, crie um arquivo √† parte e o inclua via \include{}
 \resumo
-<DIGITE O RESUMO AQUI>
-% Palavras-chave do resumo em PortuguÍs
+DIGITE O RESUMO AQUI
+% Palavras-chave do resumo em Portugu√™s
 \begin{keywords}
-<DIGITE AS PALAVRAS-CHAVE AQUI>
+DIGITE AS PALAVRAS-CHAVE AQUI
 \end{keywords}
 
-% Resumo em InglÍs
-% Se preferir, crie um arquivo ‡ parte e o inclua via \include{}
+% Resumo em Ingl√™s
+% Se preferir, crie um arquivo √† parte e o inclua via \include{}
 \abstract
-% Palavras-chave do resumo em InglÍs
+% Palavras-chave do resumo em Ingl√™s
 \begin{keywords}
-<DIGITE AS PALAVRAS-CHAVE AQUI>
+DIGITE AS PALAVRAS-CHAVE AQUI
 \end{keywords}
 
-% Sum·rio
+% Sum√°rio
 % Comente para ocultar
 \tableofcontents
 
@@ -156,9 +161,9 @@
 %%
 \mainmatter
 
-% … aconselh·vel criar cada capÌtulo em um arquivo ‡ parte, digamos
+% √â aconselh√°vel criar cada cap√≠tulo em um arquivo √† parte, digamos
 % "capitulo1.tex", "capitulo2.tex", ... "capituloN.tex" e depois
-% incluÌ-los com:
+% inclu√≠-los com:
 % \include{capitulo1}
 % \include{capitulo2}
 % ...
@@ -167,17 +172,17 @@
 
 
 %%
-%% Parte pÛs-textual
+%% Parte p√≥s-textual
 %%
 \backmatter
 
-% ApÍndices
-% Comente se n„o houver apÍndices
+% Ap√™ndices
+% Comente se n√£o houver ap√™ndices
 \appendix
 
-% … aconselh·vel criar cada apÍndice em um arquivo ‡ parte, digamos
+% √â aconselh√°vel criar cada ap√™ndice em um arquivo √† parte, digamos
 % "apendice1.tex", "apendice.tex", ... "apendiceM.tex" e depois
-% incluÌ-los com:
+% inclu√≠-los com:
 % \include{apendice1}
 % \include{apendice2}
 % ...
@@ -185,17 +190,16 @@
 
 
 % Bibliografia
-% … aconselh·vel utilizar o BibTeX a partir de um arquivo, digamos "biblio.bib".
-% Para ajuda na criaÁ„o do arquivo .bib e utilizaÁ„o do BibTeX, recorra ao
+% √â aconselh√°vel utilizar o BibTeX a partir de um arquivo, digamos "biblio.bib".
+% Para ajuda na cria√ß√£o do arquivo .bib e utiliza√ß√£o do BibTeX, recorra ao
 % BibTeXpress em www.cin.ufpe.br/~paguso/bibtexpress
 \nocite{*}
-\bibliographystyle{alpha}
+\bibliographystyle{plain}
 \bibliography{biblio}
 
-% CÛlofon
-% Inclui uma pequena nota com referÍncia ‡ UFPEThesis
-% Comente para omitir
-\colophon
+% C√≥lofon
+% Descomente para incluir uma pequena nota com refer√™ncia √† UFPEThesis
+%\colophon
 
 %% Fim do documento
 \end{document}

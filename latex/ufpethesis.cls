@@ -67,12 +67,16 @@
 \DeclareOption{classic}{%
   \let\@style=0}
  
-\DeclareOption{std}{%
+\DeclareOption{modern}{%
   \let\@style=1
 }
 
+\DeclareOption{ugly}{%
+  \let\@style=2
+}
+
 % Default options
-\ExecuteOptions{pt,msc,std,print}
+\ExecuteOptions{pt,msc,modern,print}
 \ProcessOptions
 
 \LoadClass[12pt,a4paper]{book}
@@ -215,7 +219,7 @@ grau de \@degree\ em \@majorfield.}
   \gdef\@university{#1}}
 \def\@university{Universidade Federal de Pernambuco}
 
-\def\universitylogo{ufpelogo.tex}
+\def\universitylogo{\includegraphics{ufpelogo.pdf}}
 
 \let\@showinstitute=0
 \def\institute#1{%
@@ -342,7 +346,7 @@ grau de \@degree\ em \@majorfield.}
 	\if@openright\cleardoublepage\else\clearpage\fi
   \thispagestyle{empty}
   \begin{center}
-  \input\universitylogo
+  \universitylogo
   \sf\large
   \\\@university
   \if\@showinstitute1\\\@institute\fi
@@ -777,7 +781,490 @@ grau de \@degree\ em \@majorfield.}
   \if@openright\cleardoublepage\else\clearpage\fi
   \thispagestyle{empty}
   \begin{center}
-  \input\universitylogo
+  \universitylogo
+  \large
+  \\\@university
+  \if\@showinstitute1\\\@institute\fi
+  \if\@showdepartment1\\\@department\fi
+  \vskip 25mm
+  \@program
+  \vskip 45mm
+  \begin{minipage}{110mm}
+    \begin{center}
+      {\Large\bfseries\@title}
+      \vskip\baselineskip
+      \@author
+      \vskip\baselineskip
+      \@texttype
+    \end{center}
+  \end{minipage}\\
+  \vfill
+  \@address\\
+  \@date
+  \end{center}
+}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Presentation page
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\def\presentationpage{%
+  \if@openright\cleardoublepage\else\clearpage\fi
+  \thispagestyle{empty}
+  \begin{center}
+  \large
+  \@university
+  \if\@showinstitute1\\\@institute\fi
+  \if\@showdepartment1\\\@department\fi
+  \vskip 25mm
+  \@author
+  \vskip\baselineskip
+  {\Large\bfseries\@title}
+  \vskip 58mm
+  %\begin{flushright}
+    \begin{minipage}{100mm}
+    \quotefonti %
+    \@presentationtext
+    \vskip2\baselineskip
+    \begin{center}
+    \begin{tabular}{rl}
+    {\quotefont \@advisertitle:}&\@adviser\\
+    \if\@showcoadviser1{\quotefont\@coadvisertitle:}&\@coadviser\\\fi
+    \end{tabular}
+    \end{center}
+    \end{minipage}
+  %\end{flushright}
+  \vfill
+  \@address\\
+  \@date
+  \end{center}
+}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Dedicatory
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\def\dedicatory{%
+  \if@openright\cleardoublepage\else\clearpage\fi
+  \thispagestyle{empty}
+  ~\\
+  \vfill
+  \begin{flushright}
+    \begin{minipage}{100mm}
+    \quotefonti
+    \begin{flushright}}
+\def\enddedicatory{
+		\end{flushright}
+    \normalfont
+    \end{minipage}
+  \end{flushright}}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Acknowledgements
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\def\acknowledgements{%
+  \chapter*{\acknowledgementsname}}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Resumo
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\def\resumo{%
+  \gdef\@keywordsname{\keywordsnamePT}
+  \chapter*{\resumoname}}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Abstract
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\def\abstract{%
+  \gdef\@keywordsname{\keywordsnameEN}
+  \chapter*{\abstrname}}
+
+  
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Keywords
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\def\@keywordsname{\@defaultkeywordsname}
+\def\keywords{%
+  \par\vskip\baselineskip\noindent{\bf\@keywordsname: }}
+\def\endkeywords{}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Quotations
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\def\epigraph{%
+  \if@openright\cleardoublepage\else\clearpage\fi
+  \thispagestyle{empty}
+  ~\\\vfill
+  \begin{quotation}}
+\def\endepigraph{\end{quotation}}
+
+\def\quotation{%
+  \@ifnextchar [%
+    {\begin{pquot@tion}}%
+    {\begin{pquot@tion}[\@empty]}}
+\def\endquotation{\end{pquot@tion}\@afterindentfalse\@afterheading}
+
+\def\pquot@tion[#1]#2{%
+  \def\@qauthor{#2}
+  \def\@qnote{#1}
+  \begin{flushright}
+    \begin{minipage}{0.8\textwidth}
+      \begin{flushright}\quotefonti}
+\def\endpquot@tion{%
+        \vskip.2\baselineskip%
+        \quotefont---\MakeTextUppercase{\@qauthor}
+        \if\@qnote\@empty
+          \relax
+        \else
+          \space(\@qnote)
+        \fi
+      \end{flushright}
+    \end{minipage}
+  \end{flushright}
+  \normalfont\vskip2\baselineskip}
+
+  
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Table of contents
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\def\@plaintocline#1#2#3#4#5{%
+  \ifnum #1>\c@tocdepth \else
+    \vskip \z@ \@plus.2\p@
+    {\leftskip #2\relax \rightskip \@tocrmarg \parfillskip -\rightskip
+     \parindent #2\relax\@afterindenttrue
+     \interlinepenalty\@M
+     \leavevmode
+     \@tempdima #3\relax
+     \advance\leftskip \@tempdima \null\nobreak\hskip -\leftskip
+     {#4}\nobreak
+     \leaders\hbox{$\m@th
+        \mkern \@dotsep mu\hbox{}\mkern \@dotsep
+        mu$}\hfill
+     \nobreak
+     \hb@xt@\@pnumwidth{\hfil\normalfont \normalcolor #5}%
+     \par}%
+  \fi}
+
+ \renewcommand\tableofcontents{%
+   \chapter*{\contentsname}
+   \@starttoc{toc}}
+ 
+
+% \def\l@part#1#2{%
+%   \ifnum \c@tocdepth >-2\relax
+%     \addpenalty{-\@highpenalty}%
+%     \addvspace{2.25em \@plus\p@}%
+%     \setlength\@tempdima{3em}%
+%     \begingroup
+%       \parindent \z@ \rightskip \@pnumwidth
+%       \parfillskip -\@pnumwidth
+%       {\leavevmode
+%        \large \bfseries #1\hfil \hb@xt@\@pnumwidth{\hss #2}}\par
+%        \nobreak
+%          \global\@nobreaktrue
+%          \everypar{\global\@nobreakfalse\everypar{}}%
+%     \endgroup
+%   \fi}
+
+\def\l@chapter#1#2{%
+  \ifnum \c@tocdepth >\m@ne
+    \addpenalty{-\@highpenalty}%
+    \vskip .75em \@plus\p@
+    \setlength\@tempdima{1.5em}%
+    \begingroup
+      \parindent \z@ \rightskip \@pnumwidth
+      \parfillskip -\@pnumwidth
+      \leavevmode \bfseries
+      \advance\leftskip\@tempdima
+      \hskip -\leftskip
+      #1\nobreak\hfil \nobreak\hb@xt@\@pnumwidth{\hss #2}\par
+      \penalty\@highpenalty
+    \endgroup
+    %\vskip .75em \@plus\p@
+  \fi}
+
+%\def\l@section{\@plaintocline{1}{1.5em}{2.3em}}
+%\def\l@subsection{\@plaintocline{2}{3.8em}{3.2em}}
+%\def\l@subsubsection{\@plaintocline{3}{7.0em}{4.1em}}
+%\def\l@paragraph{\@plaintocline{4}{10em}{5em}}
+%\def\l@subparagraph{\@plaintocline{5}{12em}{6em}}
+%
+%\def\l@figure{\@plaintocline{1}{1.5em}{2.3em}}
+%\def\l@table{\@plaintocline{1}{1.5em}{2.3em}}
+\let\@dottedtocline\@plaintocline
+
+\setcounter{tocdepth}{3}
+
+
+\renewcommand\listoffigures{%
+   \chapter*{\listfigurename}
+   \@starttoc{lof}}
+
+\renewcommand\listoftables{%
+   \chapter*{\listtablename}
+   \@starttoc{lot}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Sectioning
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\setcounter{secnumdepth}{4}
+
+\def\part{%
+	\if@openright\cleardoublepage\else\clearpage\fi
+  \thispagestyle{empty}%
+  \secdef\@part\@spart}
+\def\@part[#1]#2{%
+    \ifnum \c@secnumdepth >-2\relax
+      \refstepcounter{part}%
+      \addcontentsline{toc}{part}{\thepart\hspace{1em}#1}%
+    \else
+      \addcontentsline{toc}{part}{#1}%
+    \fi
+    \markboth{}{}%
+    {\centering
+     \interlinepenalty \@M
+     \normalfont
+     \null\vfil
+     \ifnum \c@secnumdepth >-2\relax
+       {\sc\Large\partname\nobreakspace\thepart}
+       \par
+       \vskip 20\p@
+     \fi
+     {\huge\bfseries #2\par}}
+     \vfil}
+\def\@spart#1{%
+    {\centering
+     \interlinepenalty \@M
+     \normalfont
+     \null\vfil
+     {\huge\bfseries #1\par}}
+     \vfil}
+
+\def\chapter{\if@openright\cleardoublepage\else\clearpage\fi
+             \thispagestyle{plain}%
+             \global\@topnum\z@
+             \@afterindentfalse
+             \secdef\@chapter\@schapter}
+
+\def\@chapter[#1]#2{
+   \refstepcounter{chapter}%
+   \addcontentsline{toc}{chapter}{\protect\numberline{\thechapter}#1}%
+   \chaptermark{#1}%
+   \addtocontents{lof}{\protect\addvspace{10\p@}}%
+   \addtocontents{lot}{\protect\addvspace{10\p@}}%
+   \@lopcchapterspace%
+   \@makechapterhead{#2}%
+   \@afterheading}
+
+\def\@makechapterhead#1{\global\topskip 1.5pc
+  \relax
+  \begingroup
+  \LARGE\bfseries\centering
+    \ifnum\c@secnumdepth>\m@ne
+      \leavevmode \hskip-\leftskip
+      \rlap{\vbox to\z@{\vss
+          \centerline{\large\sc{\chaptername}\enspace\thechapter}
+          \vskip2.5pc}}\hskip\leftskip\fi
+     #1\par \endgroup
+  \skip@10pc \advance\skip@-\normalbaselineskip
+  \vskip\skip@ }  
+  
+\def\@schapter#1{%
+  \schaptermark{#1}%
+  \@makeschapterhead{#1}%
+  \@afterheading}
+
+\def\@makeschapterhead#1{\global\topskip 1.5pc\relax
+  \begingroup
+  \LARGE\bfseries\centering
+  #1\par \endgroup
+  \skip@10pc \advance\skip@-\normalbaselineskip
+  \vskip\skip@ }
+
+\def\appendix{%
+   \setcounter{chapter}{0}%
+   \renewcommand{\thechapter}{\Alph{chapter}}%
+   \renewcommand{\chaptername}{\appendixname}}
+
+\def\@startsection#1#2#3#4#5#6{%
+ \if@noskipsec \leavevmode \fi
+ \par \@tempskipa #4\relax
+ \@afterindentfalse
+ \ifdim \@tempskipa <\z@ \@tempskipa -\@tempskipa \@afterindentfalse\fi
+ \if@nobreak \everypar{}\else
+     \addpenalty\@secpenalty\addvspace\@tempskipa\fi
+ \@ifstar{\@dblarg{\@sect{#1}{\@m}{#3}{#4}{#5}{#6}}}%
+         {\@dblarg{\@sect{#1}{#2}{#3}{#4}{#5}{#6}}}%
+}
+
+\def\section{%
+  \@startsection{section}{1}{0mm}{1.5\baselineskip}
+    {\baselineskip}{\centering\large\bfseries}}
+
+\def\subsection{%
+  \@startsection{subsection}{2}{0mm}{1.2\baselineskip}
+    {.6\baselineskip}{\centering\bfseries}}
+
+\def\subsubsection{%
+  \@startsection{subsubsection}{3}{0mm}{\baselineskip}
+   {.6\baselineskip}{\centering\normalfont}}
+
+\def\paragraph{%
+  \@startsection{paragraph}{4}{0mm}{\baselineskip}
+   {-1em}{\itshape}}
+
+\def\colophon{%
+  \if@openright\cleardoublepage\else\clearpage\fi
+  \thispagestyle{empty}
+  \null\vfill
+  \small\noindent
+  \@colophontext	
+}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Headers & footers
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\def\@evenhead{\rlap{\thepage}\hfill{\leftmark}\hfill}%
+\def\@oddhead{\hfill{\rightmark}\hfill\llap{\thepage}}%
+
+\def\chaptermark#1%
+{\markboth{\normalfont\footnotesize\MakeTextUppercase{\chaptername~\thechapter\enspace#1}}%
+{\normalfont\footnotesize\MakeTextUppercase{\chaptername~\thechapter\enspace#1}}}
+
+\def\schaptermark#1%
+{\markboth{\normalfont\footnotesize\MakeTextUppercase{#1}}%
+{\normalfont\footnotesize\MakeTextUppercase{#1}}}
+
+\def\sectionmark#1%
+{\markright{\normalfont\footnotesize\MakeTextUppercase{\thesection\enspace #1}}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Bibliography
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\global\renewenvironment{thebibliography}[1]
+     {\chapter*{\bibname}%
+      \list{\@biblabel{\@arabic\c@enumiv}}%
+           {\settowidth\labelwidth{\@biblabel{#1}}%
+            \leftmargin\labelwidth
+            \advance\leftmargin\labelsep
+            \@openbib@code
+            \usecounter{enumiv}%
+            \let\p@enumiv\@empty
+            \renewcommand\theenumiv{\@arabic\c@enumiv}}%
+      \sloppy
+      \clubpenalty4000
+      \@clubpenalty \clubpenalty
+      \widowpenalty4000%
+      \sfcode`\.\@m}
+     {\def\@noitemerr
+       {\@latex@warning{Empty `thebibliography' environment}}%
+      \endlist}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Tables and figures
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\long\def\@makecaption#1#2{%
+  \vskip\abovecaptionskip
+  \sbox\@tempboxa{\small\bf #1\rm\enskip #2}%
+  \ifdim \wd\@tempboxa >\hsize
+    {\small\bf#1\rm\enskip #2\par}
+  \else
+    \global \@minipagefalse
+    \hb@xt@\hsize{\hfil\box\@tempboxa\hfil}%
+  \fi
+  \vskip\belowcaptionskip}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Mathematics
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% Equation numbering
+\renewcommand{\theequation}{\rm\thechapter.\arabic{equation}}
+
+% Theorem-like environments
+\newtheoremstyle{theo}%
+	{\topsep}{\topsep}% Space above and below
+	{\slshape}% Body style
+	{0pt}% Heading indent amount
+	{\bfseries}{.}% Heading font and punctuation after it
+	{1ex plus 0pt minus .2ex}% Space after heading 
+	{}% Head spec (empty = same as plain style
+\theoremstyle{definition}
+\newtheorem{Def}{\@defname}[chapter]
+\newtheorem{Exp}{\@examplename}[chapter]
+\theoremstyle{theo}
+\newtheorem{Axi}{\@axiomname}[chapter]
+\newtheorem{Conj}{\@conjecturename}[chapter]
+\newtheorem{Lem}{\@lemmaname}[chapter]
+\newtheorem{Theo}{\@theoname}[chapter]
+\newtheorem{Prop}{\@propname}[chapter]
+\newtheorem{Cor}{\@corname}[chapter]
+%\renewcommand{\qedsymbol}{\rule{3pt}{8pt}}
+%\renrewcommand{\proofname}{\@proofname}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Reference macros
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\newcommand{\figref}[2][]{\@figurename~\ref{#2}#1\xspace}
+\newcommand{\tabref}[1]{\@tablename~\ref{#1}\xspace}
+\newcommand{\eqnref}[1]{\@equationame~\eqref{#1}\xspace}
+\newcommand{\chapref}[1]{\@chaptername~\ref{#1}\xspace}
+\newcommand{\secref}[1]{\@sectionname~\ref{#1}\xspace}
+\newcommand{\appref}[1]{\@appendixname~\ref{#1}\xspace}
+\newcommand{\axiref}[1]{\@axiomname~\ref{#1}\xspace}
+\newcommand{\conjref}[1]{\@conjname~\ref{#1}\xspace}
+\newcommand{\defref}[1]{\@defname~\ref{#1}\xspace}
+\newcommand{\lemref}[1]{\@lemmaname~\ref{#1}\xspace}
+\newcommand{\theoref}[1]{\@theoname~\ref{#1}\xspace}
+\newcommand{\corref}[1]{\@corname~\ref{#1}\xspace}
+\newcommand{\propref}[1]{\@propname~\ref{#1}\xspace}
+\newcommand{\expref}[1]{\@examplename~\ref{#1}\xspace}
+\newcommand{\pgref}[1]{\@pagename~\pageref{#1}\xspace}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%     UGLY UFPE STYLE WITH ABNT FRONT MATTER      %%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\else\if\@style2
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Fonts
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\newcommand\quotefont{\normalfont\normalsize}
+\newcommand\quotefonti{\it\normalsize}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Frontpage
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\def\frontpage{%
+  \if@openright\cleardoublepage\else\clearpage\fi
+  \thispagestyle{empty}
+  \begin{center}
+  \universitylogo
   \large
   \\\@university
   \if\@showinstitute1\\\@institute\fi
