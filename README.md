@@ -7,9 +7,9 @@
 <tr>
 <td><img src="./img/texlion1.png"></td>
 <td>+</td>
-<td><img src="./logoufpe.jpg"></td>
+<td><img src="./img/logoufpe.jpg"></td>
 <td>=</td>
-<td><img src="./logobw.jpg"></td>
+<td><img src="./img/logobw.jpg"></td>
 </tr>
 </table>
 
