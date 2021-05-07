@@ -2,6 +2,18 @@
 
 **Classe LaTeX para tipografia de teses e dissertações na UFPE**
 
+
+<table>
+<tr>
+<td><img src="./img/texlion1.png"></td>
+<td>+</td>
+<td><img src="./logoufpe.jpg"></td>
+<td>=</td>
+<td><img src="./logobw.jpg"></td>
+</tr>
+</table>
+
+
 UFPEThesis é uma classe LaTeX para tipografia de monografias de graduação, dissertações de mestrado e teses de doutorado. Embora tenha sido escrita para ser utilizada principalmente pelos alunos das ditas Ciências Exatas (Matemática, Computação, Estatística, Física, Química, etc.) que, tradicionalmente, utilizam o TeX/LaTeX como plataforma de processamento de textos, a UFPEThesis é suficientemente configurável e facilmente adaptável para ser útil a alunos de praticamente todos os cursos da [UFPE](http://www.ufpe.br) e também de outras instituições.
 
 ## Instalação
