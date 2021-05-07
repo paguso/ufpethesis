@@ -3,13 +3,13 @@
 **Classe LaTeX para tipografia de teses e dissertações na UFPE**
 
 
-<table>
+<table border=0>
 <tr>
-<td><img src="./img/texlion1.png"></td>
+<td><img height=300 src="./img/texlion1.png"></td>
 <td>+</td>
-<td><img src="./img/logoufpe.jpg"></td>
+<td><img height=300 src="./img/logoufpe.jpg"></td>
 <td>=</td>
-<td><img src="./img/logobw.jpg"></td>
+<td><img height=300 src="./img/logobw.jpg"></td>
 </tr>
 </table>
 
